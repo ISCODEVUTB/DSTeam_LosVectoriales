@@ -1,4 +1,5 @@
 import hashlib
+import sys
 
 USUARIOS_FILE = "usuarios.txt"
 
@@ -14,10 +15,10 @@ def registrar_usuario():
         print("Tipo de usuario no válido.")
         return
     
-    if(tipo == "administrador"):
-        codigo = int(input("Ingrese codigo de administrador: "))
-        if(codigo not in cod_admin):
-            print("Codigo no valido")
+    if tipo == "administrador":
+        codigo = int(input("Ingrese código de administrador: "))
+        if codigo not in cod_admin:
+            print("Código no válido")
             return
 
     with open(USUARIOS_FILE, "a") as file:
@@ -33,9 +34,8 @@ def autenticar_usuario():
             user, pass_hash, tipo = line.strip().split(",")
             if user == usuario and pass_hash == hash_password(contraseña):
                 print(f"Autenticación exitosa. Tipo de usuario: {tipo}")
-                return tipo
+                sys.exit(0)  # Finaliza el programa inmediatamente después del inicio de sesión
     print("Usuario o contraseña incorrectos.")
-    return None
 
 def menu():
     while True:
@@ -52,6 +52,5 @@ def menu():
         else:
             print("Opción no válida.")
 
-
-cod_admin = [123,321,456,654]
+cod_admin = [123, 321, 456, 654]
 menu()

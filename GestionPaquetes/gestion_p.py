@@ -1,3 +1,6 @@
+import openpyxl
+import os
+
 class Paquetes:
     def __init__(self, nombre, peso, tipo, contenido=None, categoria=None, dimension=None):
         self.__nombre = nombre
@@ -80,3 +83,59 @@ class Creacion:
 paquete = Creacion.crear_paquete()
 print("\nPaquete creado con éxito:\n")
 print(paquete)
+
+#creacion base de datos
+class Paquetes:
+    FILE_PATH = "paquetes.xlsx"
+    @classmethod
+
+    def iniciar_excel(cls):
+        if not os.path.exists(cls.FILE_PATH):
+            wb = openpyxl.Workbook()
+            ws = wb.active
+            ws.append(["Nombre", "Peso", "Tipo", "Contenido", "Categoría", "Dimensiones"])
+            wb.save(cls.FILE_PATH)
+    def to_list(self):
+        return [self.nombre, self.peso, self.tipo, self.contenido, self.categoria, self.dimension]
+    
+    @classmethod
+    def guardar(cls, paquete):
+        wb = openpyxl.load_workbook(cls.FILE_PATH)
+        ws = wb.active
+        ws.append(paquete.to_list())
+        wb.save(cls.FILE_PATH)
+
+    @classmethod
+    def mostrar(cls):
+        """Muestra los paquetes almacenados en el archivo Excel."""
+        wb = openpyxl.load_workbook(cls.FILE_PATH)
+        ws = wb.active
+        if ws.max_row == 1:
+            print("No hay paquetes guardados.")
+            return
+        print("Paquetes almacenados:\n")
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]}")
+    @classmethod
+    def crear(cls):
+        nombre = input("Nombre: ")
+        peso = input("Peso (kg): ")
+        tipo = input("Tipo (basico, estandar, dimensionado): ").strip().lower()
+        while tipo not in ["basico", "estandar", "dimensionado"]:
+            print("Tipo inválido. Debe ser basico, estandar o dimensionado.")
+            tipo = input("Tipo: ").strip().lower()
+        contenido = input("Contenido (separado por comas): ")
+        categoria = input("Categoría (separada por comas): ")
+        dimension = input("Dimensiones (ej: 10x20x30 cm): ")
+
+        paquete = cls(nombre, peso, tipo, contenido, categoria, dimension)
+        cls.guardar(paquete)
+        print("\n Paquete guardado correctamente.")
+        return paquete
+
+Paquetes.inicializar_excel()
+
+paquete = Paquetes.crear()
+print("\n Paquete creado:\n", paquete.to_list())
+
+Paquetes.mostrar()

@@ -2,13 +2,14 @@ import openpyxl
 import os
 
 class Paquetes:
-    def __init__(self, nombre, peso, tipo, contenido=None, categoria=None, dimension=None):
+    def __init__(self, nombre, peso, tipo, contenido=None, categoria=None, dimension=None, estado_pedido=None):
         self.__nombre = nombre
         self.__peso = f"{peso} kg"
         self.__tipo = tipo
         self.__contenido = contenido if contenido else []
         self.__categoria = categoria if categoria else []
         self.__dimension = dimension if dimension else []
+        self.__estado_pedido = estado_pedido
 
     @property
     def nombre(self):
@@ -55,14 +56,22 @@ class Paquetes:
     def agregar_dimension(self, dim):
         self.__dimension.append(dim)
 
+    @property
+    def estado_pedido(self):
+        return self.__estado_pedido
+    
+    def agregar_estado_pedido(self, nuevo_estado):
+        self.__estado_pedido = nuevo_estado
+
     def __str__(self):
         return (f"Paquete: {self.__nombre}\n"
                 f"Peso: {self.__peso}\n"
                 f"Tipo: {self.__tipo}\n"
                 f"Contenido: {', '.join(self.__contenido) if self.__contenido else 'N/A'}\n"
                 f"Categoría: {', '.join(self.__categoria) if self.__categoria else 'N/A'}\n"
-                f"Dimensiones: {', '.join(self.__dimension) if self.__dimension else 'N/A'}\n")
-
+                f"Dimensiones: {', '.join(self.__dimension) if self.__dimension else 'N/A'}\n"
+                f"estado del pedido: {self.__estado_pedido}\n")
+                
 class Creacion:
     @staticmethod
     def crear_paquete():
@@ -77,8 +86,8 @@ class Creacion:
         contenido = input("Contenido (separado por comas): ").split(",") 
         categoria = input("Categorías (separadas por comas): ").split(",") 
         dimension = input("Dimensiones (ej: 10x20x30 cm): ").split(",")
-
-        return Paquetes(nombre, peso, tipo, contenido, categoria, dimension)
+        estado_pedido = "pendiente"
+        return Paquetes(nombre, peso, tipo, contenido, categoria, dimension, estado_pedido)
 
 paquete = Creacion.crear_paquete()
 print("\nPaquete creado con éxito:\n")
@@ -93,7 +102,7 @@ class ExcelPaquetes:
         if not os.path.exists(cls.FILE_PATH):
             wb = openpyxl.Workbook()
             ws = wb.active
-            ws.append(["Nombre", "Peso", "Tipo", "Contenido", "Categoría", "Dimensiones"])
+            ws.append(["Nombre", "Peso", "Tipo", "Contenido", "Categoría", "Dimensiones", "estado pedido"])
             wb.save(cls.FILE_PATH)
 
     @classmethod
@@ -109,8 +118,9 @@ class ExcelPaquetes:
             paquete.tipo,
             ", ".join(paquete.contenido) if paquete.contenido else "N/A",
             ", ".join(paquete.categoria) if paquete.categoria else "N/A",
-            ", ".join(paquete.dimension) if paquete.dimension else "N/A"
-        ])
+            ", ".join(paquete.dimension) if paquete.dimension else "N/A",
+            paquete.estado_pedido,
+            ])
         
         wb.save(cls.FILE_PATH)
         wb.close()
@@ -131,9 +141,10 @@ class ExcelPaquetes:
 
         print("\nPaquetes almacenados:")
         for row in ws.iter_rows(min_row=2, values_only=True):
-            print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]}")
-        
+            print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]} | {row[6]}")
+         
         wb.close()
 
 ExcelPaquetes.iniciar_excel()
 ExcelPaquetes.guardar(paquete)
+ExcelPaquetes.mostrar()

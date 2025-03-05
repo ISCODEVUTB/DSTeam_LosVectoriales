@@ -75,7 +75,11 @@ class Paquetes:
 class Creacion:
     @staticmethod
     def crear_paquete():
+
         nombre = input("Nombre del paquete: ")
+        while nombre in column[0]:
+            print("Nombre de paquete ya existente...")
+            nombre = input("Nombre del paquete: ")
         peso = input("Peso (kg): ")
         tipo = None
         while tipo != "basico" or tipo != "estandar" or tipo != "dimensionado":
@@ -89,7 +93,6 @@ class Creacion:
         estado_pedido = "pendiente"
         return Paquetes(nombre, peso, tipo, contenido, categoria, dimension, estado_pedido)
 
-#creacion base de datos
 class ExcelPaquetes:
     FILE_PATH = "paquetes.xlsx"
 
@@ -140,6 +143,30 @@ class ExcelPaquetes:
             print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]} | {row[6]}")
          
         wb.close()
+    @classmethod    
+    def mostrar_dis(cls):
+        if not os.path.exists(cls.FILE_PATH):
+            print("No hay paquetes guardados.")
+            return
+
+        wb = openpyxl.load_workbook(cls.FILE_PATH)
+        ws = wb.active
+        
+        if ws.max_row == 1:
+            print("No hay paquetes almacenados.")
+            return
+
+        print("\nPaquetes almacenados:")
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            if row[6] == "pendiente":
+                print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]} | Disponible")
+         
+        wb.close()
+
+    @classmethod
+    def registrar_pedido(cls):
+        pass
+
 
 if __name__ == "main":
     paquete = Creacion.crear_paquete()
@@ -149,3 +176,4 @@ if __name__ == "main":
     ExcelPaquetes.iniciar_excel()
     ExcelPaquetes.guardar(paquete)
     ExcelPaquetes.mostrar()
+    ExcelPaquetes.mostrar_dis()

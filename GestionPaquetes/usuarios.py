@@ -1,5 +1,6 @@
 import hashlib
 from gestion_p import ExcelPaquetes
+from gestion_e import hacer_pedido
 
 USUARIOS_FILE = "usuarios.txt"
 
@@ -28,6 +29,7 @@ def registrar_usuario():
     print("Usuario registrado con éxito.")
 
 def autenticar_usuario():
+    global usuario
     usuario = input("Ingrese su nombre de usuario: ")
     contraseña = input("Ingrese su contraseña: ")
     
@@ -59,7 +61,7 @@ def menu_cliente(usuario):
             print("Mostrando productos...")
         elif opcion == "2":
             print("Realizando un pedido...")
-            ExcelPaquetes.mostrar()
+            hacer_pedido(usuario)
         elif opcion == "3":
             print("Mostrando tus pedidos pendientes...")
         elif opcion == "4":

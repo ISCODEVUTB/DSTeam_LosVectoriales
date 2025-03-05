@@ -89,10 +89,6 @@ class Creacion:
         estado_pedido = "pendiente"
         return Paquetes(nombre, peso, tipo, contenido, categoria, dimension, estado_pedido)
 
-paquete = Creacion.crear_paquete()
-print("\nPaquete creado con éxito:\n")
-print(paquete)
-
 #creacion base de datos
 class ExcelPaquetes:
     FILE_PATH = "paquetes.xlsx"
@@ -145,6 +141,11 @@ class ExcelPaquetes:
          
         wb.close()
 
-ExcelPaquetes.iniciar_excel()
-ExcelPaquetes.guardar(paquete)
-ExcelPaquetes.mostrar()
+if __name__ == "main":
+    paquete = Creacion.crear_paquete()
+    print("\nPaquete creado con éxito:\n")
+    print(paquete)
+
+    ExcelPaquetes.iniciar_excel()
+    ExcelPaquetes.guardar(paquete)
+    ExcelPaquetes.mostrar()

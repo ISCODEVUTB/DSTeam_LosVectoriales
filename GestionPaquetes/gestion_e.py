@@ -5,7 +5,5 @@ def hacer_pedido(usuario):
     ExcelPaquetes.mostrar_dis()
     
     paquete = input("Ingrese el nombre del paquete que desea pedir: ")
-    
-    
 
     print(f"Pedido de '{paquete}' realizado con éxito.")

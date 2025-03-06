@@ -1,6 +1,7 @@
 import hashlib
 from gestion_p import ExcelPaquetes
 from gestion_e import hacer_pedido
+import auth
 
 USUARIOS_FILE = "usuarios.txt"
 
@@ -29,16 +30,15 @@ def registrar_usuario():
     print("Usuario registrado con éxito.")
 
 def autenticar_usuario():
-    global usuario
     usuario = input("Ingrese su nombre de usuario: ")
     contraseña = input("Ingrese su contraseña: ")
-    
+
     with open(USUARIOS_FILE, "r") as file:
         for line in file:
             user, pass_hash, tipo = line.strip().split(",")
             if user == usuario and pass_hash == hash_password(contraseña):
                 print(f"Autenticación exitosa. Bienvenido, {usuario} ({tipo}).")
-                
+                auth.usuario = usuario  
                 if tipo == "cliente":
                     menu_cliente(usuario)
                 elif tipo == "administrador":

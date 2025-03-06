@@ -1,6 +1,8 @@
 import openpyxl
 import os
 import hashlib
+
+op_n = "Opcion invalida"
 #gestion e
 def hacer_pedido(usuario):
     print("\nLista de paquetes disponibles:")
@@ -74,7 +76,7 @@ def menu_cliente(usuario):
             print("Cerrando sesión...")
             break
         else:
-            print("Opción no válida.")
+            print(op_n)
 
 def menu_administrador(usuario):
     while True:
@@ -95,7 +97,7 @@ def menu_administrador(usuario):
             print("Cerrando sesión...")
             break
         else:
-            print("Opción no válida.")
+            print(op_n)
 
 def menu_domiciliario(usuario):
     while True:
@@ -113,7 +115,7 @@ def menu_domiciliario(usuario):
             print("Cerrando sesión...")
             break
         else:
-            print("Opción no válida.")
+            print(op_n)
 
 def menu():
     while True:
@@ -131,7 +133,7 @@ def menu():
             print("Saliendo...")
             break
         else:
-            print("Opción no válida.")
+            print(op_n)
 
 #gestion p
 class Paquetes:
@@ -384,10 +386,10 @@ class ExcelPaquetes:
         try:
             cambio = int(input("\nDigite el número de la opción a cambiar: "))
             if cambio < 1 or cambio > 7:
-                print("Selección inválida.")
+                print(op_n)
                 return
         except ValueError:
-            print("Entrada inválida. Debe ser un número.")
+            print(op_n)
             return
 
         nuevo_valor = input("Ingrese el nuevo valor: ")

@@ -1,10 +1,10 @@
 import hashlib
 from gestion_p import ExcelPaquetes
 from gestion_e import hacer_pedido
-import auth
-
+import openpyxl
+import os
+op_n = "Opcion invalida"
 USUARIOS_FILE = "usuarios.txt"
-
 cod_admin = [123, 321, 456, 654]
 
 def hash_password(password):
@@ -38,7 +38,6 @@ def autenticar_usuario():
             user, pass_hash, tipo = line.strip().split(",")
             if user == usuario and pass_hash == hash_password(contraseña):
                 print(f"Autenticación exitosa. Bienvenido, {usuario} ({tipo}).")
-                auth.usuario = usuario  
                 if tipo == "cliente":
                     menu_cliente(usuario)
                 elif tipo == "administrador":
@@ -47,6 +46,66 @@ def autenticar_usuario():
                     menu_domiciliario(usuario)
                 return  
     print("Usuario o contraseña incorrectos.")
+    
+def actualizar_datos(cls, usuario):
+        if not os.path.exists(cls.FILE_PATH):
+            print("No hay paquetes guardados.")
+            return
+
+        wb = openpyxl.load_workbook(cls.FILE_PATH)
+        ws = wb.active
+
+        paquetes_usuario = []
+        
+        for row_idx, row in enumerate(ws.iter_rows(min_row=2, values_only=True), start=2):
+            if row[0] == usuario: 
+                paquetes_usuario.append((row_idx, row))
+
+        if not paquetes_usuario:
+            print("No tienes paquetes registrados.")
+            return
+
+        print("\nTus productos:")
+        for idx, (row_idx, paquete) in enumerate(paquetes_usuario, start=1):
+            print(f"{idx}. {paquete[1]} | Precio: {paquete[2]} | Peso: {paquete[3]} | Tipo: {paquete[4]}")
+
+        try:
+            pcambio = int(input("\nSeleccione el número del paquete que desea cambiar: ")) - 1
+            if pcambio < 0 or pcambio >= len(paquetes_usuario):
+                print("Selección inválida.")
+                return
+        except ValueError:
+            print("Entrada inválida. Debe ser un número.")
+            return
+
+        row_idx, paquete = paquetes_usuario[pcambio]
+
+        print("\nSeleccione el dato que desea cambiar:")
+        print(f"1. Nombre ({paquete[1]})")
+        print(f"2. Precio ({paquete[2]})")
+        print(f"3. Peso ({paquete[3]})")
+        print(f"4. Tipo ({paquete[4]})")
+        print(f"5. Contenido ({paquete[5]})")
+        print(f"6. Categoría ({paquete[6]})")
+        print(f"7. Dimensiones ({paquete[7]})")
+
+        try:
+            cambio = int(input("\nDigite el número de la opción a cambiar: "))
+            if cambio < 1 or cambio > 7:
+                print(op_n)
+                return
+        except ValueError:
+            print(op_n)
+            return
+
+        nuevo_valor = input("Ingrese el nuevo valor: ")
+
+        ws.cell(row=row_idx, column=cambio + 1, value=nuevo_valor)
+
+        wb.save(cls.FILE_PATH)
+        wb.close()
+        
+        print("Cambio realizado con éxito.")
 
 def menu_cliente(usuario):
     while True:
@@ -54,7 +113,8 @@ def menu_cliente(usuario):
         print("1. Tus productos")
         print("2. Hacer pedido")
         print("3. Ver estado de pedidos")
-        print("4. Cerrar sesión")
+        print("4.cambiar un pedido ")
+        print("5. Cerrar sesión")
         opcion = input("Seleccione una opción: ")
 
         if opcion == "1":
@@ -64,11 +124,13 @@ def menu_cliente(usuario):
             hacer_pedido(usuario)
         elif opcion == "3":
             print("Mostrando tus pedidos pendientes...")
-        elif opcion == "4":
+        elif opcion == "4" :
+            actualizar_datos(ExcelPaquetes, usuario)  
+        elif opcion == "5":
             print("Cerrando sesión...")
             break
         else:
-            print("Opción no válida.")
+            print(op_n)
 
 def menu_administrador(usuario):
     while True:
@@ -89,7 +151,7 @@ def menu_administrador(usuario):
             print("Cerrando sesión...")
             break
         else:
-            print("Opción no válida.")
+            print(op_n)
 
 def menu_domiciliario(usuario):
     while True:
@@ -107,7 +169,7 @@ def menu_domiciliario(usuario):
             print("Cerrando sesión...")
             break
         else:
-            print("Opción no válida.")
+            print(op_n)
 
 def menu():
     while True:
@@ -125,6 +187,7 @@ def menu():
             print("Saliendo...")
             break
         else:
-            print("Opción no válida.")
+            print(op_n)
 
+            
 menu()

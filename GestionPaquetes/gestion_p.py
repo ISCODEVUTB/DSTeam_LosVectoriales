@@ -1,8 +1,8 @@
 import openpyxl
 import os
-
+op_n = "Opcion invalida"
 class Paquetes:
-    def __init__(self, nombre, peso, precio, tipo, contenido=None, categoria=None, dimension=None, estado_pedido=None, creador = None, direccion = None, domiciliario = None):
+    def __init__(self, nombre, peso, precio, tipo, contenido=None, categoria=None, dimension=None, estado_pedido=None, direccion = None, domiciliario = None):
         self.__nombre = nombre
         self.__peso = f"{peso} kg"
         self.__precio = f"{precio} $"
@@ -11,7 +11,6 @@ class Paquetes:
         self.__categoria = categoria if categoria else []
         self.__dimension = dimension if dimension else []
         self.__estado_pedido = estado_pedido
-        self.__creador = usuario
         self.__direccion = direccion
         self.__domiciliario = domiciliario
 
@@ -99,8 +98,7 @@ class Paquetes:
         self.__domiciliario = new_dom
 
     def __str__(self):
-        return (f"Creador: {self.__creador}\n"
-                f"Paquete: {self.__nombre}\n"
+        return (f"Paquete: {self.__nombre}\n"
                 f"precio: {self.__precio}\n"
                 f"Peso: {self.__peso}\n"
                 f"Tipo: {self.__tipo}\n"
@@ -126,11 +124,9 @@ class Creacion:
         categoria = input("Categorías (separadas por comas): ").split(",") 
         dimension = input("Dimensiones (ej: 10x20x30 cm): ").split(",")
         estado_pedido = "pendiente"
-        creador=usuario
-        direccion= input("Cual es la direccion de su domicilio? ")
+        direccion= None
         domiciliario= None
-
-        return Paquetes(nombre, peso, precio, tipo, contenido, categoria, dimension, estado_pedido, creador, direccion, domiciliario)
+        return Paquetes(nombre, peso, precio, tipo, contenido, categoria, dimension, estado_pedido, direccion, domiciliario)
 
 class ExcelPaquetes:
     FILE_PATH = "paquetes.xlsx"
@@ -140,7 +136,7 @@ class ExcelPaquetes:
         if not os.path.exists(cls.FILE_PATH):
             wb = openpyxl.Workbook()
             ws = wb.active
-            ws.append(["Creador", "Nombre", "Precio", "Peso", "Tipo", "Contenido", "Categoría", "Dimensiones", "estado pedido","Direccion","Domiciliario"])
+            ws.append([ "Nombre", "Precio", "Peso", "Tipo", "Contenido", "Categoría", "Dimensiones", "Estado pedido","Direccion","Domiciliario","Usuario"])
             wb.save(cls.FILE_PATH)
 
     @classmethod
@@ -151,7 +147,7 @@ class ExcelPaquetes:
         wb = openpyxl.load_workbook(cls.FILE_PATH)
         ws = wb.active
         ws.append([
-            paquete.creador,
+            
             paquete.nombre,
             paquete.precio,
             paquete.peso,
@@ -205,77 +201,8 @@ class ExcelPaquetes:
                 print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]} | {row[6]} | {row[7]} | Disponible ")
          
         wb.close()
-    @classmethod
-    def actualizar_datos(cls):
-        if not os.path.exists(cls.FILE_PATH):
-            print("No hay paquetes guardados.")
-            return
 
-        usuario = auth.usuario 
-        wb = openpyxl.load_workbook(cls.FILE_PATH)
-        ws = wb.active
 
-        paquetes_usuario = []
-        
-        for row_idx, row in enumerate(ws.iter_rows(min_row=2, values_only=True), start=2):
-            if row[0] == usuario: 
-                paquetes_usuario.append((row_idx, row))
-
-        if not paquetes_usuario:
-            print("No tienes paquetes registrados.")
-            return
-
-        print("\nTus productos:")
-        for idx, (row_idx, paquete) in enumerate(paquetes_usuario, start=1):
-            print(f"{idx}. {paquete[1]} | Precio: {paquete[2]} | Peso: {paquete[3]} | Tipo: {paquete[4]}")
-
-        try:
-            pcambio = int(input("\nSeleccione el número del paquete que desea cambiar: ")) - 1
-            if pcambio < 0 or pcambio >= len(paquetes_usuario):
-                print("Selección inválida.")
-                return
-        except ValueError:
-            print("Entrada inválida. Debe ser un número.")
-            return
-
-        row_idx, paquete = paquetes_usuario[pcambio]
-
-        print("\nSeleccione el dato que desea cambiar:")
-        print(f"1. Nombre ({paquete[1]})")
-        print(f"2. Precio ({paquete[2]})")
-        print(f"3. Peso ({paquete[3]})")
-        print(f"4. Tipo ({paquete[4]})")
-        print(f"5. Contenido ({paquete[5]})")
-        print(f"6. Categoría ({paquete[6]})")
-        print(f"7. Dimensiones ({paquete[7]})")
-
-        try:
-            cambio = int(input("\nDigite el número de la opción a cambiar: "))
-            if cambio < 1 or cambio > 7:
-                print("Selección inválida.")
-                return
-        except ValueError:
-            print("Entrada inválida. Debe ser un número.")
-            return
-
-        nuevo_valor = input("Ingrese el nuevo valor: ")
-
-        ws.cell(row=row_idx, column=cambio + 1, value=nuevo_valor)
-
-        wb.save(cls.FILE_PATH)
-        wb.close()
-        
-        print("Cambio realizado con éxito.")
-
-    @classmethod
-    def registrar_pedido(cls):
-        pass
-
-if __name__ == "__main__":
-    paquete = Creacion.crear_paquete()
-    print("\nPaquete creado con éxito:\n")
-    print(paquete)
-    ExcelPaquetes.iniciar_excel()
-    ExcelPaquetes.guardar(paquete)
-    ExcelPaquetes.mostrar()
-    ExcelPaquetes.mostrar_dis()
+if __name__== "main":
+    paquete = Creacion.crear_paquete()  
+    ExcelPaquetes.guardar(paquete) 

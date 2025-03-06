@@ -135,7 +135,7 @@ def menu():
 
 #gestion p
 class Paquetes:
-    def __init__(self, nombre, peso, precio, tipo, contenido=None, categoria=None, dimension=None, estado_pedido=None, creador = None, direccion = None, domiciliario = None):
+    def __init__(self, nombre, peso, precio, tipo, contenido=None, categoria=None, dimension=None, estado_pedido=None, usuario=None, direccion = None, domiciliario = None):
         self.__nombre = nombre
         self.__peso = f"{peso} kg"
         self.__precio = f"{precio} $"
@@ -144,7 +144,7 @@ class Paquetes:
         self.__categoria = categoria if categoria else []
         self.__dimension = dimension if dimension else []
         self.__estado_pedido = estado_pedido
-        self.__creador = creador
+        self.__usuario = usuario
         self.__direccion = direccion
         self.__domiciliario = domiciliario
 
@@ -261,6 +261,7 @@ class Creacion:
         estado_pedido = "pendiente"
         direccion= input("Cual es la direccion de su domicilio? ")
         domiciliario= None
+        usuario= "nombre del usuario"
         return Paquetes(usuario, nombre, peso, precio, tipo, contenido, categoria, dimension, estado_pedido, direccion, domiciliario)
 
 class ExcelPaquetes:
@@ -403,5 +404,6 @@ class ExcelPaquetes:
         pass
 
 ExcelPaquetes.iniciar_excel()
-ExcelPaquetes.guardar()
+paquete = Creacion.crear_paquete()
+ExcelPaquetes.guardar(paquete)
 #menu()

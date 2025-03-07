@@ -23,17 +23,20 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
-      - name: Install linting tools
-        run: pip install flake8 autopep8
+          pip install pytest flake8 autopep8  # Instalar pytest y herramientas de linting
 
       - name: Autoformat with autopep8
         run: autopep8 --in-place --aggressive --aggressive **/*.py
 
       - name: Lint with flake8
-        run: flake8 GestionPaquetes/ || true  # Permite que el pipeline continúe
+        run: flake8 || true  
+
+      - name: Check for null bytes in test files
+        run: |
+          if grep -r -P "\x00" tests/; then
+            echo "Error: Null bytes found in test files!"
+            exit 1
+          fi
 
       - name: Run tests
-        run: |
-          pip install pytest
-          pytest tests/
+        run: pytest --tb=short --disable-warnings

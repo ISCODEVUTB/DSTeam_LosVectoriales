@@ -1,4 +1,4 @@
-from gestion_p import ExcelPaquetes
+from source.management_p import ExcelPaquetes
 
 def hacer_pedido(usuario):
     print("\nLista de paquetes disponibles:")

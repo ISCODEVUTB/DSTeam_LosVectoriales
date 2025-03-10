@@ -1,6 +1,6 @@
 import hashlib
-from gestion_p import ExcelPaquetes
-from gestion_e import hacer_pedido
+from source.management_p import ExcelPaquetes
+from source.management_e import hacer_pedido
 import openpyxl
 import os
 op_n = "Opcion invalida"

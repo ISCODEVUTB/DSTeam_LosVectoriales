@@ -1,9 +1,9 @@
-from source.management_p import ExcelPaquetes
+from excel_creation import ExcelPackages
 
-def hacer_pedido(usuario):
+def place_order(usuario):
     print("\nLista de paquetes disponibles:")
-    ExcelPaquetes.mostrar_dis()
+    ExcelPackages.show_dis()
     
-    paquete = input("Ingrese el nombre del paquete que desea pedir: ")
+    packages = input("Ingrese el nombre del paquete que desea pedir: ")
 
-    print(f"Pedido de '{paquete}' realizado con éxito.")
+    print(f"Pedido de '{packages}' realizado con éxito.")

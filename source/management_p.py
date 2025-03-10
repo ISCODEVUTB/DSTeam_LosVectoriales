@@ -1,8 +1,7 @@
-import openpyxl
-import os
-op_n = "Opcion invalida"
+from excel_creation import ExcelPackages
+from source.creation_a import Creation
 class Packages:
-    def __init__(self, name, weight, price, type, content=None, category=None, dimension=None, order_status=None, addreess = None, domiciliary = None):
+    def __init__(self, name, weight, price, type, content=None, category=None, dimension=None, order_status=None, address = None, domiciliary = None):
         self.__name = name
         self.__weight = f"{weight} kg"
         self.__price = f"{price} $"
@@ -11,10 +10,8 @@ class Packages:
         self.__category = category if category else []
         self.__dimension = dimension if dimension else []
         self.__order_status = order_status
-        self.__addreess = addreess
-        self.__domiciliary = domiciliary
-
-
+        self.__address = address
+        self.__domiciliary = domiciliary       
     @property
     def name(self):
         return self.__name
@@ -78,16 +75,16 @@ class Packages:
     def order_status(self):
         return self.__order_status
     
-    def agregar_order_status(self, nuevo_estado):
-        self.__order_status = nuevo_estado
+    def add_order_status(self, new_status):
+        self.__order_status = new_status
 
     @property
-    def addreess(self):
-        return self.__addreess
+    def address(self):
+        return self.__address
 
-    @addreess.setter
-    def addreess(self, new_addr):
-        self.__addreess = new_addr
+    @address.setter
+    def address(self, new_addr):
+        self.__address = new_addr
 
     @property
     def domiciliary(self):
@@ -105,104 +102,7 @@ class Packages:
                 f"Contenido: {', '.join(self.__content) if self.__content else 'N/A'}\n"
                 f"Categoría: {', '.join(self.__category) if self.__category else 'N/A'}\n"
                 f"Dimensiones: {', '.join(self.__dimension) if self.__dimension else 'N/A'}\n"
-                f"estado del pedido: {self.__order_status}\n")
-                
-class Creation:
-    @staticmethod
-    def create_packages():
-
-        name = input("Nombre del paquete: ")
-        price= input("Digite el precio del paquete: ")
-        weight = input("Peso (kg): ")
-        type = None
-        while type != "basico" or type != "estandar" or type != "dimensionado":
-            print("El tipo debe ser basico, estandar o dimensionado") 
-            type = input("Tipo (basico, estandar o dimensionado): ")
-            if type == "basico" or type == "estandar" or type == "dimensionado":
-                break
-        content = input("Contenido (separado por comas): ").split(",") 
-        category = input("Categorías (separadas por comas): ").split(",") 
-        dimension = input("Dimensiones (ej: 10x20x30 cm): ").split(",")
-        order_status = "pendiente"
-        addreess= None
-        domiciliary= None
-        return Packages(name, weight, price, type, content, category, dimension, order_status, addreess, domiciliary)
-
-class ExcelPackages:
-    FILE_PATH = "packages.xlsx"
-
-    @classmethod
-    def start_excel(cls):
-        if not os.path.exists(cls.FILE_PATH):
-            wb = openpyxl.Workbook()
-            ws = wb.active
-            ws.append([ "Nombre", "Precio", "Peso", "Tipo", "Contenido", "Categoría", "Dimensiones", "Estado pedido","Direccion","Domiciliario","Usuario"])
-            wb.save(cls.FILE_PATH)
-
-    @classmethod
-    def save(cls, package):
-        if not os.path.exists(cls.FILE_PATH):
-            cls.start_excel()
-
-        wb = openpyxl.load_workbook(cls.FILE_PATH)
-        ws = wb.active
-        ws.append([
-            
-            package.name,
-            package.price,
-            package.weight,
-            package.type,
-            ", ".join(package.content) if package.content else "N/A",
-            ", ".join(package.category) if package.category else "N/A",
-            ", ".join(package.dimension) if package.dimension else "N/A",
-            package.order_status,
-            package.addreess,
-            package.domiciliary,
-            ])
-        
-        wb.save(cls.FILE_PATH)
-        wb.close()
-        print("\nPaquete guardado con éxito en la base de datos.")
-
-    @classmethod
-    def show(cls):
-        if not os.path.exists(cls.FILE_PATH):
-            print("No hay paquetes guardados.")
-            return
-
-        wb = openpyxl.load_workbook(cls.FILE_PATH)
-        ws = wb.active
-        
-        if ws.max_row == 1:
-            print("No hay paquetes almacenados.")
-            return
-
-        print("\nPaquetes almacenados:")
-        for row in ws.iter_rows(min_row=2, values_only=True):
-            print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]} | {row[6]} | {row[7]} | {row[8]}" )
-         
-        wb.close()
-    @classmethod    
-    def show_dis(cls):
-        if not os.path.exists(cls.FILE_PATH):
-            print("No hay paquetes guardados.")
-            return
-
-        wb = openpyxl.load_workbook(cls.FILE_PATH)
-        ws = wb.active
-        
-        if ws.max_row == 1:
-            print("No hay paquetes almacenados.")
-            return
-
-        print("\nPaquetes almacenados:")
-        for row in ws.iter_rows(min_row=2, values_only=True):
-            if row[8] == "pendiente":
-                print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]} | {row[6]} | {row[7]} | Disponible ")
-         
-        wb.close()
-
-
+                f"estado del pedido: {self.__order_status}\n")                
 if __name__== "main":
     package = Creation.create_packages()  
     ExcelPackages.save(package) 

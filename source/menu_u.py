@@ -1,7 +1,8 @@
-from users import update_data, authenticate_user, register_user
-from source.management_e import place_order
+from source.users_packages import update_d, authenticate_user, register_user
+from management_e import place_order
 from excel_creation import ExcelPackages
 op_n = "opcion invalida"
+
 def menu_customer(user):
     while True:
         print(f"\nMenú Cliente ({user})")
@@ -20,7 +21,7 @@ def menu_customer(user):
         elif opcion == "3":
             print("Mostrando tus pedidos pendientes...")
         elif opcion == "4" :
-            update_data(ExcelPackages, user)  
+            update_d(ExcelPackages, user)  
         elif opcion == "5":
             print("Cerrando sesión...")
             break

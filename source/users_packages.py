@@ -1,8 +1,7 @@
 import hashlib
-from source.management_e import place_order
 import openpyxl
 import os
-from menu_u import *
+from menu_u import menu_customer, menu_administrator, menu_domiciliary
 op_n = "Opcion invalida"
 USERS_FILE = "users.txt"
 cod_admin = [123, 321, 456, 654]
@@ -47,7 +46,7 @@ def authenticate_user():
                 return  
     print("Usuario o contraseña incorrectos.")
     
-def update_data(cls, user):
+def update_d(cls, user):
         if not os.path.exists(cls.FILE_PATH):
             print("No hay paquetes guardados.")
             return

@@ -1,5 +1,5 @@
 from excel_creation import ExcelPackages
-from source.creation_a import Creation
+from creation_a import Creation
 class Packages:
     def __init__(self, name, weight, price, type, content=None, category=None, dimension=None, order_status=None, address = None, domiciliary = None):
         self.__name = name

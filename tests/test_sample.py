@@ -1,10 +1,13 @@
 import unittest
+import sys
+import os
+import openpyxl
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "source")))
+
 from source import management_p
 from source import excel_creation
 from source import users_packages
-
-import os
-import openpyxl
 
 class TestPackage(unittest.TestCase):
     def setUp(self):

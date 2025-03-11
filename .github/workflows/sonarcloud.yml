@@ -45,4 +45,4 @@ jobs:
             -Dsonar.projectKey=ISCODEVUTB_DSTeam_LosVectoriales
             -Dsonar.organization=iscodevutb
             -Dsonar.python.coverage.reportPaths=coverage/coverage.lcov
-            -Dsonar.verbose=true
+            -Dsonar.verbose=true 

@@ -9,8 +9,7 @@
 - [Seguridad](#seguridad)
 - [Requerimientos del Sistema](#requerimientos-del-sistema)
 - [Contribución](#contribución)
-- [Contacto](#contacto)
-- [Licencia](#licencia)
+- [Equipo](#equipo)
 ## Descripción
 El **Sistema de Gestión de Paquetes** es una aplicación diseñada para optimizar y modernizar la administración de envíos y paquetes en empresas logísticas. Este software proporciona herramientas avanzadas para la gestión integral de envíos, rastreo de paquetes, autenticación de usuarios, facturación automatizada y pagos electrónicos, mejorando la eficiencia operativa y la experiencia del cliente.
 

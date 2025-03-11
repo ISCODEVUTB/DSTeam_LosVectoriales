@@ -10,11 +10,9 @@ on:
 
 jobs:
   sonar:
-    name: SonarQube Analysis
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -25,15 +23,16 @@ jobs:
 
       - name: Install SonarQube Scanner
         run: |
-          curl -L -o sonar-scanner.zip "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.0.2.4839-linux.zip"
+          curl -L -o sonar-scanner.zip "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip"
           unzip sonar-scanner.zip
-          mv sonar-scanner-7.0.2.4839-linux sonar-scanner
+          mv sonar-scanner-5.0.1.3006-linux sonar-scanner
           echo "$(pwd)/sonar-scanner/bin" >> $GITHUB_PATH
 
       - name: Run SonarQube Scan
-        run: sonar-scanner \
-          -Dsonar.projectKey=TuProyecto \
-          -Dsonar.organization=TuOrganizacion \
-          -Dsonar.sources=. \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.organization=AzTTeK \
+            -Dsonar.projectKey=AzTTeK_DSteam_LosVectoriales \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.python.coverage.reportPaths=coverage.xml

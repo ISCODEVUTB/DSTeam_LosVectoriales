@@ -1,4 +1,4 @@
-name: SonarCloud Analysis
+name: SonarQube Analysis
 
 on:
   push:
@@ -9,9 +9,8 @@ on:
       - main
 
 jobs:
-  sonarcloud:
-    name: SonarCloud Analysis
-    runs-on: ubuntu-latest
+  sonar:
+    runs-on: ubuntu-latest  # Usa 'windows-latest' si es Windows
 
     steps:
       - name: Checkout repository
@@ -20,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.13'
+          python-version: '3.13.2'
 
       - name: Install dependencies
         run: |
@@ -30,22 +29,27 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          pytest --cov=. --cov-report=xml --cov-report=term
+          pytest --cov=. --cov-report=xml
 
-      - name: Fix coverage file paths
+      - name: Set up JDK 17 (Requerido por SonarScanner)
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install SonarScanner
         run: |
-          sed -i 's#<source>/home/runner/work/DSTeam_LosVectoriales/DSTeam_LosVectoriales#<source>$GITHUB_WORKSPACE#g' coverage.xml
+          wget -O sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+          unzip sonar-scanner.zip
+          echo "$(pwd)/sonar-scanner-5.0.1.3006-linux/bin" >> $GITHUB_PATH
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
+      - name: Run SonarScanner
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.organization=azttek-1
-            -Dsonar.projectKey=AzTTeK_DSTeam_LosVectoriales
-            -Dsonar.python.version=3.13
-            -Dsonar.sources=.
-            -Dsonar.tests=tests
-            -Dsonar.coverageReportPaths=coverage.xml
-            -Dsonar.scanner.forceAnalysis=true
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=AzTTeK_DSTeam_LosVectoriales \
+            -Dsonar.organization=azttek-1 \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.token=$SONAR_TOKEN \
+            -Dsonar.python.coverage.reportPaths=coverage.xml

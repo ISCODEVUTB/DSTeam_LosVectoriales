@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.13.2'  
+          python-version: '3.13.2'  # Ajusta según la versión que uses
 
       - name: Install dependencies
         run: |
@@ -37,7 +37,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.organization=AzTEK
-            -Dsonar.projectKey=AzTEK_DSTeam_LosVectoriales
+            -Dsonar.organization=AzTTeK
+            -Dsonar.projectKey=AzTTeK_DSTeam_LosVectoriales
             -Dsonar.sources=.
             -Dsonar.python.coverage.reportPaths=coverage.xml

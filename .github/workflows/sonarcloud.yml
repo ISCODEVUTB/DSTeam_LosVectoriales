@@ -31,7 +31,10 @@ jobs:
 
       - name: Run tests and generate coverage report
         run: |
-          pytest --cov=src --cov-report=lcov
+          pytest --cov=src --cov-report=lcov:coverage/coverage.lcov
+
+      - name: Check coverage report
+        run: ls -lah coverage/
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
@@ -41,4 +44,5 @@ jobs:
           args: >
             -Dsonar.projectKey=ISCODEVUTB_DSTeam_LosVectoriales
             -Dsonar.organization=iscodevutb
-            -Dsonar.python.coverage.reportPaths=coverage.lcov
+            -Dsonar.python.coverage.reportPaths=coverage/coverage.lcov
+            -Dsonar.verbose=true

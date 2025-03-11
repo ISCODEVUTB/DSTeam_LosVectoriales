@@ -25,12 +25,10 @@ El **Sistema de Gestión de Paquetes** es una aplicación diseñada para optimiz
 - **Encargado de envíos:** Responsable de la entrega y actualización del estado de los paquetes.
 
 ## Tecnologías Utilizadas
-- **Backend:** Python con Flask/Django.
-- **Frontend:** React.js o Vue.js.
+- **Lenguajes y Frameworks:** Python 3.9
 - **Base de Datos:** Oracle Database.
-- **Autenticación:** ReCAPTCHA y cifrado de credenciales.
+- **Herramientas de Desarrollo:**- Docker, Git, GitHub Actions.
 - **Pagos:** Integración con PSE para transacciones seguras.
-- **GPS:** Google Maps para seguimiento en tiempo real.
 
 ## Instalación y Configuración
 1. Clona este repositorio:

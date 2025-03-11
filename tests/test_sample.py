@@ -5,11 +5,12 @@ import openpyxl
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "source")))
 
-from source import management_p
-from source import excel_creation
-from source import users_packages
+from excel_creation import ExcelPackages
+from management_p import Packages
 
-class TestPackage(unittest.TestCase):
+
+
+class TestPackages(unittest.TestCase):
     def setUp(self):
         self.package = Package("Box 1", "2", "basic", ["Book"], ["Education"], ["10x10x10 cm"], "pending")
 
@@ -37,7 +38,7 @@ class TestPackage(unittest.TestCase):
         self.assertIn("20x20x20 cm", self.package.dimension)
         self.assertEqual(self.package.order_status, "shipped")
 
-class TestExcelPackage(unittest.TestCase):
+class TestExcelPackages(unittest.TestCase):
     FILE_PATH = "test_packages.xlsx"
 
     @classmethod
@@ -45,9 +46,9 @@ class TestExcelPackage(unittest.TestCase):
         ExcelPackages.FILE_PATH = cls.FILE_PATH
         ExcelPackages.start_excel()
 
-    def test_save_package(self):
-        package = Package("Box Test", "1", "standard", ["Mouse"], ["Technology"], ["5x5x5 cm"], "pending")
-        ExcelPackages.save(package)
+    def test_save_packages(self):
+        packages = Packages("Box Test", "1", "standard", ["Mouse"], ["Technology"], ["5x5x5 cm"], "pending")
+        ExcelPackages.save(packages)
 
         wb = openpyxl.load_workbook(self.FILE_PATH)
         ws = wb.active

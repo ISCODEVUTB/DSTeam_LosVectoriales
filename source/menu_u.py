@@ -1,4 +1,4 @@
-from source.users_packages import update_d, authenticate_user, register_user
+from users_packages import update_d, authenticate_user, register_user
 from management_e import place_order
 from excel_creation import ExcelPackages
 op_n = "opcion invalida"
@@ -9,7 +9,7 @@ def menu_customer(user):
         print("1. Tus productos")
         print("2. Hacer pedido")
         print("3. Ver estado de pedidos")
-        print("4.cambiar un pedido ")
+        print("4. Editar productos")
         print("5. Cerrar sesión")
         opcion = input("Seleccione una opción: ")
 

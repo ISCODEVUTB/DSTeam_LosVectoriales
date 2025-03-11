@@ -1,9 +1,7 @@
-from management_p import Packages
-
 class Creation:
     @staticmethod
     def create_packages():
-
+        from management_p import Packages
         name = input("Nombre del paquete: ")
         price= input("Digite el precio del paquete: ")
         weight = input("Peso (kg): ")

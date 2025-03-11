@@ -1,6 +1,5 @@
-from excel_creation import ExcelPackages
-
 def place_order(usuario):
+    from excel_creation import ExcelPackages
     print("\nLista de paquetes disponibles:")
     ExcelPackages.show_dis()
     

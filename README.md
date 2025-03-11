@@ -7,9 +7,11 @@
 - [Tecnologías Utilizadas](#tecnologías-utilizadas)
 - [Instalación y Configuración](#instalación-y-configuración)
 - [Seguridad](#seguridad)
-- [Requerimientos del Sistema](#requerimientos-del-sistema)
+- [Arquitectura](#arquitectura)
+- [API](#api)
 - [Contribución](#contribución)
-- [Equipo](#equipo)
+- [Contacto](#contacto)
+- [Licencia](#licencia)
 ## Descripción
 El **Sistema de Gestión de Paquetes** es una aplicación diseñada para optimizar y modernizar la administración de envíos y paquetes en empresas logísticas. Este software proporciona herramientas avanzadas para la gestión integral de envíos, rastreo de paquetes, autenticación de usuarios, facturación automatizada y pagos electrónicos, mejorando la eficiencia operativa y la experiencia del cliente.
 
@@ -32,4 +34,20 @@ El **Sistema de Gestión de Paquetes** es una aplicación diseñada para optimiz
 
 ## Instalación y Configuración
 1. Clona este repositorio:
-  
+2. Crear y activar el entorno virtual:
+
+**Windows**
+```bash
+python -m venv venv
+.\venv\Scripts\activate
+```
+3. Instalar las dependencias necesarias
+```bash
+pip install -r requirements.txt
+```
+## Seguridad
+- **Cifrado de datos sensibles.**
+- **Control de acceso basado en roles.**
+- **Conexiones seguras para protección de información.**
+## Arquitectura
+

@@ -37,7 +37,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.organization=AzTTeK
+            -Dsonar.organization=azttek-1
             -Dsonar.projectKey=AzTTeK_DSTeam_LosVectoriales
             -Dsonar.sources=.
             -Dsonar.python.coverage.reportPaths=coverage.xml

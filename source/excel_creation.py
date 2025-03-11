@@ -9,7 +9,7 @@ class ExcelPackages:
         if not os.path.exists(cls.FILE_PATH):
             wb = openpyxl.Workbook()
             ws = wb.active
-            ws.append([ "Nombre", "Precio", "Peso", "Tipo", "Contenido", "Categoría", "Dimensiones", "Estado pedido","Direccion","Domiciliario","Usuario"])
+            ws.append([package.name, package.weight, package.price, package.type, package.content, package.category, package.dimension, package.order_status])
             wb.save(cls.FILE_PATH)
 
     @classmethod

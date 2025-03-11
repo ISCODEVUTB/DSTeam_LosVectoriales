@@ -10,11 +10,12 @@ from management_p import Packages
 
 class TestPackages(unittest.TestCase):
     def setUp(self):
-        self.package = Packages("Box 1", "2", "100", "basic", ["Book"], ["Education"], ["10x10x10 cm"], "pending")
+        self.package = Packages("Box 1", "2", "50", "basic", ["Book"], ["Education"], ["10x10x10 cm"], "pending")
 
     def test_package_creation(self):
         self.assertEqual(self.package.name, "Box 1")
         self.assertEqual(self.package.weight, "2 kg")
+        self.assertEqual(self.package.price, "50")
         self.assertEqual(self.package.type, "basic")
         self.assertEqual(self.package.content, ["Book"])
         self.assertEqual(self.package.category, ["Education"])
@@ -24,14 +25,14 @@ class TestPackages(unittest.TestCase):
     def test_modify_package(self):
         self.package.name = "Box 2"
         self.package.weight = "3"
-        self.package.content = ["Notebook"]
-        self.package.category = ["Office"]
-        self.package.dimension = ["20x20x20 cm"]
-        self.package.add_order_status("shipped")
+        self.package.content = "Notebook"  # Ahora se asigna directamente
+        self.package.category = "Office"  # Ahora se asigna directamente
+        self.package.dimension = "20x20x20 cm"  # Ahora se asigna directamente
+        self.package.order_status = "shipped"
 
         self.assertEqual(self.package.name, "Box 2")
         self.assertEqual(self.package.weight, "3 kg")
-        self.assertEqual(self.package.content, ["Notebook"])
+        self.assertEqual(self.package.content, ["Notebook"])  # Ahora la lista se actualiza correctamente
         self.assertEqual(self.package.category, ["Office"])
         self.assertEqual(self.package.dimension, ["20x20x20 cm"])
         self.assertEqual(self.package.order_status, "shipped")
@@ -45,8 +46,8 @@ class TestExcelPackages(unittest.TestCase):
         ExcelPackages.start_excel()
 
     def test_save_packages(self):
-        packages = Packages("Box Test", "1", "50", "standard", ["Mouse"], ["Technology"], ["5x5x5 cm"], "pending")
-        ExcelPackages.save(packages)
+        package = Packages("Box Test", "1", "50", "standard", ["Mouse"], ["Technology"], ["5x5x5 cm"], "pending")
+        ExcelPackages.save(package)
 
         wb = openpyxl.load_workbook(self.FILE_PATH)
         ws = wb.active

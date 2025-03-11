@@ -1,48 +1,42 @@
-name: SonarCloud Analysis
+name: Build
 
 on:
   push:
     branches:
       - main
   pull_request:
-    branches:
-      - main
+    types: [opened, synchronize, reopened]
 
 jobs:
-  sonarcloud:
-    name: SonarCloud Scan
+  sonarqube:
+    name: SonarQube
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Asegura que el historial completo esté disponible para SonarCloud
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.x'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pytest pytest-cov
 
-      - name: Run tests and generate coverage report
-        run: |
-          pytest --cov=src --cov-report=lcov:coverage/coverage.lcov
+      - name: Run tests with coverage
+        run: pytest --cov=. --cov-report=xml
 
-      - name: Check coverage report
-        run: ls -lah coverage/
-
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=ISCODEVUTB_DSTeam_LosVectoriales
-            -Dsonar.organization=iscodevutb
-            -Dsonar.python.coverage.reportPaths=coverage/coverage.lcov
-            -Dsonar.verbose=true 
+            -Dsonar.projectKey=DSTeam_LosVectoriales
+            -Dsonar.organization=AzTTeK
+            -Dsonar.python.coverage.reportPaths=coverage.xml

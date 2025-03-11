@@ -10,8 +10,9 @@ on:
 
 jobs:
   sonarcloud:
-    name: SonarCloud
+    name: SonarCloud Analysis
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,17 +20,21 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.13.2'  # Ajusta según la versión que uses
+          python-version: '3.13'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Instala tus dependencias
-          pip install pytest pytest-cov  # Asegura pytest y coverage
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
 
-      - name: Run Tests and Coverage
+      - name: Run tests with coverage
         run: |
-          pytest --cov=. --cov-report=xml  # Genera el reporte coverage.xml
+          pytest --cov=. --cov-report=xml --cov-report=term
+
+      - name: Fix coverage file paths
+        run: |
+          sed -i 's#<source>/home/runner/work/DSTeam_LosVectoriales/DSTeam_LosVectoriales#<source>$GITHUB_WORKSPACE#g' coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
@@ -39,5 +44,8 @@ jobs:
           args: >
             -Dsonar.organization=azttek-1
             -Dsonar.projectKey=AzTTeK_DSTeam_LosVectoriales
+            -Dsonar.python.version=3.13
             -Dsonar.sources=.
-            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.tests=tests
+            -Dsonar.coverageReportPaths=coverage.xml
+            -Dsonar.scanner.forceAnalysis=true

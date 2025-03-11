@@ -50,4 +50,44 @@ pip install -r requirements.txt
 - **Control de acceso basado en roles.**
 - **Conexiones seguras para protección de información.**
 ## Arquitectura
-
+```
+SGPAQUETES
+├── .github/workflows/
+│   ├── ci.yml
+│   ├── sonarcloud.yml
+├── Docs/
+│   ├── Directions.pdf
+│   ├── Requerimientos Sistema Gestión.pdf
+│   ├── UTB_Template (2).pdf
+│   ├── prueba.txt
+├── source/
+│   ├── __pycache__/
+│   │   ├── creation_a.cpython-312.pyc
+│   │   ├── excel_creation.cpython-312.pyc
+│   │   ├── management_e.cpython-312.pyc
+│   │   ├── management_p.cpython-312.pyc
+│   │   ├── menu_u.cpython-312.pyc
+│   │   ├── users_p.cpython-313.pyc
+│   │   ├── users_packages.cpython-312.pyc
+│   ├── __init__.py
+│   ├── creation_a.py
+│   ├── excel_creation.py
+│   ├── main.py
+│   ├── management_e.py
+│   ├── management_p.py
+│   ├── menu_u.py
+│   ├── users_packages.py
+├── tests/
+│   ├── tests/
+│   │   ├── test_sample.py
+│   │   ├── __init__.py
+│   ├── prueba.py
+│   ├── test_sample.py
+├── LICENSE
+├── README.md
+├── dockerfile
+├── packages.xlsx
+├── requirements.txt
+├── sonar-project.properties
+├── users.txt
+```

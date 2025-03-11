@@ -4,13 +4,17 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   sonar:
+    name: SonarQube Analysis
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -19,10 +23,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Run SonarQube Scan
+      - name: Install SonarQube Scanner
         run: |
-          sonar-scanner \
-            -Dsonar.projectKey=AzITeK_DSTeam_LosVectoriales \
-            -Dsonar.host.url=http://your-sonarqube-server:9000 \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.python.coverage.reportPaths=coverage.xml
+          curl -L -o sonar-scanner.zip "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.0.2.4839-linux.zip"
+          unzip sonar-scanner.zip
+          mv sonar-scanner-7.0.2.4839-linux sonar-scanner
+          echo "$(pwd)/sonar-scanner/bin" >> $GITHUB_PATH
+
+      - name: Run SonarQube Scan
+        run: sonar-scanner \
+          -Dsonar.projectKey=TuProyecto \
+          -Dsonar.organization=TuOrganizacion \
+          -Dsonar.sources=. \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.token=${{ secrets.SONAR_TOKEN }}

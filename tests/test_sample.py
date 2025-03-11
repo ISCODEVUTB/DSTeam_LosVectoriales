@@ -1,6 +1,8 @@
 import unittest
-from source.main import management_p
-from source.main import excel_creation
+from source import management_p
+from source import excel_creation
+from source import users_packages
+
 import os
 import openpyxl
 

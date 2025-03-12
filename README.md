@@ -91,3 +91,20 @@ SGPAQUETES
 ├── sonar-project.properties
 ├── users.txt
 ```
+## API
+## Gestion de usuario (users_packeges)
+
+### `hash_password(password)`
+Genera un hash SHA-256 para cifrar la contraseña.
+
+### `input_user_data()`
+Solicita al usuario su nombre y contraseña.
+
+### `register_user()`
+Registra un nuevo usuario y almacena su información.
+
+### `authenticate_user()`
+Verifica credenciales y redirige al menú correspondiente.
+
+### `update_d(cls, user)`
+Permite modificar detalles de los paquetes en un archivo de Excel.

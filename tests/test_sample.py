@@ -9,7 +9,7 @@ class TestPackages(unittest.TestCase):
 
     def test_modify_package(self):
         self.package.name = "Box 2"
-        self.package.weight = "3"
+        self.package.weight = "3 kg"  # Asegurar que el peso incluye la unidad "kg"
         self.package.content = "Notebook"  # Asegurar lista plana
         self.package.category = "Office"
         self.package.dimension = "20x20x20 cm"
@@ -24,7 +24,7 @@ class TestPackages(unittest.TestCase):
 
 class TestExcelPackages(unittest.TestCase):
     def test_save_packages(self):
-        package = Packages("Box Test", "1", "50", "standard", "Mouse", "Technology", "5x5x5 cm", "pending")
+        package = Packages("Box Test", "1", "50 kg", "standard", "Mouse", "Technology", "5x5x5 cm", "pending")
         ExcelPackages.save(package)
 
         wb = openpyxl.load_workbook(ExcelPackages.FILE_PATH)
@@ -35,5 +35,5 @@ class TestExcelPackages(unittest.TestCase):
         # Revisar última fila en el archivo para evitar fallos si hay otras entradas previas
         last_row = data[-1]  # Última entrada añadida
 
-        expected_row = ("Box Test", "50", "1 kg", "standard", "Mouse", "Technology", "5x5x5 cm", "pending", "N/A", "N/A")
+        expected_row = ("Box Test", "50 kg", "1 kg", "standard", "Mouse", "Technology", "5x5x5 cm", "pending", "N/A", "N/A")
         self.assertEqual(last_row[:10], expected_row)  # Comparar solo los primeros 10 elementos

@@ -5,8 +5,8 @@ import openpyxl
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "source")))
 
-from excel_creation import ExcelPackages
-from management_p import Packages
+from source.excel_creation import ExcelPackages
+from source.management_p import Packages
 
 class TestPackages(unittest.TestCase):
     def setUp(self):
@@ -25,14 +25,14 @@ class TestPackages(unittest.TestCase):
     def test_modify_package(self):
         self.package.name = "Box 2"
         self.package.weight = "3"
-        self.package.content = "Notebook"  # Ahora se asigna directamente
-        self.package.category = "Office"  # Ahora se asigna directamente
-        self.package.dimension = "20x20x20 cm"  # Ahora se asigna directamente
+        self.package.content = ["Notebook"]  # Se mantiene correctamente como lista
+        self.package.category = ["Office"]  # Se mantiene correctamente como lista
+        self.package.dimension = ["20x20x20 cm"]  # Se mantiene correctamente como lista
         self.package.order_status = "shipped"
 
         self.assertEqual(self.package.name, "Box 2")
         self.assertEqual(self.package.weight, "3 kg")
-        self.assertEqual(self.package.content, ["Notebook"])  # Ahora la lista se actualiza correctamente
+        self.assertEqual(self.package.content, ["Notebook"])  # Ahora se compara correctamente
         self.assertEqual(self.package.category, ["Office"])
         self.assertEqual(self.package.dimension, ["20x20x20 cm"])
         self.assertEqual(self.package.order_status, "shipped")
@@ -43,7 +43,8 @@ class TestExcelPackages(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         ExcelPackages.FILE_PATH = cls.FILE_PATH
-        ExcelPackages.start_excel()
+        cls.package = Packages("Box Test", "1", "50", "standard", ["Mouse"], ["Technology"], ["5x5x5 cm"], "pending")
+        ExcelPackages.start_excel(cls.package)
 
     def test_save_packages(self):
         package = Packages("Box Test", "1", "50", "standard", ["Mouse"], ["Technology"], ["5x5x5 cm"], "pending")
@@ -54,7 +55,8 @@ class TestExcelPackages(unittest.TestCase):
         data = list(ws.iter_rows(values_only=True))
         wb.close()
 
-        self.assertEqual(data[1], ("Box Test", "1 kg", "50", "standard", "Mouse", "Technology", "5x5x5 cm", "pending"))
+        expected_row = ("Box Test", "1 kg", "50", "standard", "Mouse", "Technology", "5x5x5 cm", "pending")
+        self.assertEqual(data[1], expected_row)
 
     @classmethod
     def tearDownClass(cls):

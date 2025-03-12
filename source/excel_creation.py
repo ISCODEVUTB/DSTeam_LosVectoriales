@@ -5,7 +5,7 @@ class ExcelPackages:
     FILE_PATH = "packages.xlsx"
 
     @classmethod
-    def start_excel(cls):
+    def start_excel(cls, package):
         if not os.path.exists(cls.FILE_PATH):
             wb = openpyxl.Workbook()
             ws = wb.active

@@ -22,8 +22,8 @@ class ExcelPackages:
             ", ".join(package.category) if isinstance(package.category, list) else package.category,
             ", ".join(package.dimension) if isinstance(package.dimension, list) else package.dimension,
             package.order_status,
-            "N/A",  # Dirección
-            "N/A"   # Domiciliario
+            "N/A", 
+            "N/A"   
         ]
         
         ws.append(row)

@@ -10,9 +10,9 @@ class TestPackages(unittest.TestCase):
     def test_modify_package(self):
         self.package.name = "Box 2"
         self.package.weight = "3"
-        self.package.content = ["Notebook"]  # Asegurar lista plana
-        self.package.category = ["Office"]
-        self.package.dimension = ["20x20x20 cm"]
+        self.package.content = "Notebook"  # Asegurar lista plana
+        self.package.category = "Office"
+        self.package.dimension = "20x20x20 cm"
         self.package.order_status = "shipped"
 
         self.assertEqual(self.package.name, "Box 2")

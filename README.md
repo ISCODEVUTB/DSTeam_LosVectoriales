@@ -150,3 +150,19 @@ Muestra el menú para administradores, permitiéndoles agregar productos, ver pe
 
 ### `menu_domiciliary(user) -> None`  
 Muestra el menú para domiciliarios, permitiéndoles ver y actualizar el estado de los pedidos.  
+
+## Contribuciones  
+Todas las contribuciones son bienvenidas. Si deseas proponer un cambio, abre un issue o un pull request para discutirlo.  
+
+## Equipo
+
+### Desarrolladores Principales
+- **Mateo Reyes** - *Programador*
+- **Sebastian Valencia** - *Programador*
+### Ingenieros en DevOps
+- **Juan Silgado** - *CI/CD*
+- **Niguel Villa** - *CI/CD*
+### Analista
+- **Elias Blanco** - *Code quality*
+###Licencia
+Este proyecto se distribuye bajo la licencia MIT.

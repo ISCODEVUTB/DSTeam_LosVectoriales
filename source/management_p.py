@@ -13,7 +13,7 @@ class Packages:
         domiciliary=None,
     ):
         self.__name = name
-        self.__weight = f"{weight} kg"
+        self.__weight = f"{weight} kg" if "kg" not in weight else weight
         self.__price = price
         self.__type = type
         self.__content = content if content else []
@@ -37,7 +37,7 @@ class Packages:
 
     @weight.setter
     def weight(self, new_weight):
-        self.__weight = f"{new_weight} kg"
+        self.__weight = f"{new_weight} kg" if "kg" not in new_weight else new_weight
 
     @property
     def price(self):

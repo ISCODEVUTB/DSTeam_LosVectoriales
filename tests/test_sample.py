@@ -10,14 +10,14 @@ class TestPackages(unittest.TestCase):
     def test_modify_package(self):
         self.package.name = "Box 2"
         self.package.weight = "3"
-        self.package.content = "Notebook"  # Asegurar lista plana
+        self.package.content = ["Notebook"]  # Asegurar lista plana
         self.package.category = ["Office"]
         self.package.dimension = ["20x20x20 cm"]
         self.package.order_status = "shipped"
 
         self.assertEqual(self.package.name, "Box 2")
         self.assertEqual(self.package.weight, "3 kg")
-        self.assertEqual(self.package.content, "Notebook")  # Se mantiene como lista simple
+        self.assertEqual(self.package.content, ["Notebook"])  # Se mantiene como lista simple
         self.assertEqual(self.package.category, ["Office"])
         self.assertEqual(self.package.dimension, ["20x20x20 cm"])
         self.assertEqual(self.package.order_status, "shipped")

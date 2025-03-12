@@ -94,17 +94,17 @@ SGPAQUETES
 ## API
 ## Gestion de usuario (users_packeges)
 
-### `hash_password(password)`
-Genera un hash SHA-256 para cifrar la contraseña.
+### `hash_password(password: str) -> str`
+Cifra una contraseña usando SHA-256.
 
-### `input_user_data()`
-Solicita al usuario su nombre y contraseña.
+### `input_user_data() -> tuple`
+Solicita y retorna el nombre de usuario y la contraseña.
 
-### `register_user()`
+### `register_user() -> None`
 Registra un nuevo usuario y almacena su información.
 
-### `authenticate_user()`
-Verifica credenciales y redirige al menú correspondiente.
+### `authenticate_user() -> None`
+Verifica credenciales y redirige al menú según el tipo de usuario.
 
-### `update_d(cls, user)`
+### `update_d(cls, user: str) -> None`
 Permite modificar detalles de los paquetes en un archivo de Excel.

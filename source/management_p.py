@@ -1,5 +1,17 @@
 class Packages:
-    def __init__(self, name, weight, price, type, content=None, category=None, dimension=None, order_status=None, address=None, domiciliary=None):
+    def __init__(
+        self,
+        name,
+        weight,
+        price,
+        type,
+        content=None,
+        category=None,
+        dimension=None,
+        order_status=None,
+        address=None,
+        domiciliary=None,
+    ):
         self.__name = name
         self.__weight = f"{weight} kg"
         self.__price = price
@@ -14,6 +26,7 @@ class Packages:
     @property
     def name(self):
         return self.__name
+
     @name.setter
     def name(self, new_name):
         self.__name = new_name
@@ -21,6 +34,7 @@ class Packages:
     @property
     def weight(self):
         return self.__weight
+
     @weight.setter
     def weight(self, new_weight):
         self.__weight = f"{new_weight} kg"
@@ -28,6 +42,7 @@ class Packages:
     @property
     def price(self):
         return self.__price
+
     @price.setter
     def price(self, new_price):
         self.__price = new_price
@@ -35,6 +50,7 @@ class Packages:
     @property
     def type(self):
         return self.__type
+
     @type.setter
     def type(self, new_type):
         self.__type = new_type
@@ -42,6 +58,7 @@ class Packages:
     @property
     def content(self):
         return self.__content
+
     @content.setter
     def content(self, cont):
         self.__content = [cont]
@@ -49,6 +66,7 @@ class Packages:
     @property
     def category(self):
         return self.__category
+
     @category.setter
     def category(self, cat):
         self.__category = [cat]
@@ -56,6 +74,7 @@ class Packages:
     @property
     def dimension(self):
         return self.__dimension
+
     @dimension.setter
     def dimension(self, dim):
         self.__dimension = [dim]
@@ -71,6 +90,7 @@ class Packages:
     @property
     def address(self):
         return self.__address
+
     @address.setter
     def address(self, new_addr):
         self.__address = new_addr
@@ -78,22 +98,27 @@ class Packages:
     @property
     def domiciliary(self):
         return self.__domiciliary
+
     @domiciliary.setter
     def domiciliary(self, new_dom):
         self.__domiciliary = new_dom
 
     def __str__(self):
-        return (f"Paquete: {self.__name}\n"
-                f"Precio: {self.__price}\n"
-                f"Peso: {self.__weight}\n"
-                f"Tipo: {self.__type}\n"
-                f"Contenido: {', '.join(self.__content) if self.__content else 'N/A'}\n"
-                f"Categoría: {', '.join(self.__category) if self.__category else 'N/A'}\n"
-                f"Dimensiones: {', '.join(self.__dimension) if self.__dimension else 'N/A'}\n"
-                f"Estado del pedido: {self.__order_status}\n")
+        return (
+            f"Paquete: {self.__name}\n"
+            f"Precio: {self.__price}\n"
+            f"Peso: {self.__weight}\n"
+            f"Tipo: {self.__type}\n"
+            f"Contenido: {', '.join(self.__content) if self.__content else 'N/A'}\n"
+            f"Categoría: {', '.join(self.__category) if self.__category else 'N/A'}\n"
+            f"Dimensiones: {', '.join(self.__dimension) if self.__dimension else 'N/A'}\n"
+            f"Estado del pedido: {self.__order_status}\n"
+        )
+
 
 if __name__ == "__main__":
     from excel_creation import ExcelPackages
     from creation_a import Creation
+
     package = Creation.create_packages()
     ExcelPackages.save(package)

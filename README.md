@@ -34,7 +34,10 @@ El **Sistema de Gestión de Paquetes** es una aplicación diseñada para optimiz
 
 ## Instalación y Configuración
 1. Clona este repositorio:
-2. Crear y activar el entorno virtual:
+```bash
+  https://github.com/ISCODEVUTB/DSTeam_LosVectoriales.git
+```
+3. Crear y activar el entorno virtual:
 
 **Windows**
 ```bash
@@ -164,5 +167,7 @@ Todas las contribuciones son bienvenidas. Si deseas proponer un cambio, abre un 
 - **Niguel Villa** - *CI/CD*
 ### Analista
 - **Elias Blanco** - *Code quality*
-###Licencia
-Este proyecto se distribuye bajo la licencia MIT.
+
+## Licencia  
+Este proyecto se distribuye bajo los términos de la Licencia MIT.
+

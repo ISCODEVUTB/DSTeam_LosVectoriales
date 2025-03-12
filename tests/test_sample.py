@@ -30,14 +30,14 @@ class TestPackages(unittest.TestCase):
     def test_modify_package(self):
         self.package.name = "Box 2"
         self.package.weight = "3"
-        self.package.content = ["Notebook"]
+        self.package.content = ["Notebook"]  # Asegurar lista plana
         self.package.category = ["Office"]
         self.package.dimension = ["20x20x20 cm"]
         self.package.order_status = "shipped"
 
         self.assertEqual(self.package.name, "Box 2")
         self.assertEqual(self.package.weight, "3 kg")
-        self.assertEqual(self.package.content, ["Notebook"])
+        self.assertEqual(self.package.content, ["Notebook"])  # Lista plana asegurada
         self.assertEqual(self.package.category, ["Office"])
         self.assertEqual(self.package.dimension, ["20x20x20 cm"])
         self.assertEqual(self.package.order_status, "shipped")
@@ -61,7 +61,7 @@ class TestExcelPackages(unittest.TestCase):
         wb.close()
 
         expected_row = ("Box Test", "50", "1 kg", "standard", "Mouse", "Technology", "5x5x5 cm", "pending", "N/A", "N/A")
-        self.assertEqual(data[1], expected_row)
+        self.assertEqual(data[1], expected_row)  # Ahora coinciden las columnas
 
     @classmethod
     def tearDownClass(cls):

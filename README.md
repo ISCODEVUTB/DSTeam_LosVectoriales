@@ -167,5 +167,7 @@ Todas las contribuciones son bienvenidas. Si deseas proponer un cambio, abre un 
 - **Niguel Villa** - *CI/CD*
 ### Analista
 - **Elias Blanco** - *Code quality*
-###Licencia
-Este proyecto se distribuye bajo la licencia MIT.
+
+## Licencia  
+Este proyecto se distribuye bajo los términos de la Licencia MIT.
+

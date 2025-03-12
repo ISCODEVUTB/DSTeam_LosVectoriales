@@ -9,7 +9,7 @@ class Packages:
         self.__dimension = dimension if dimension else []
         self.__order_status = order_status
         self.__address = address
-        self.__domiciliary = domiciliary       
+        self.__domiciliary = domiciliary
 
     @property
     def name(self):
@@ -20,7 +20,7 @@ class Packages:
 
     @property
     def weight(self):
-        return self.__weight    
+        return self.__weight
     @weight.setter
     def weight(self, new_weight):
         self.__weight = f"{new_weight} kg"
@@ -41,28 +41,28 @@ class Packages:
 
     @property
     def content(self):
-        return self.__content   
+        return self.__content
     @content.setter
     def content(self, cont):
         self.__content = [cont]
 
     @property
     def category(self):
-        return self.__category    
+        return self.__category
     @category.setter
     def category(self, cat):
         self.__category = [cat]
 
     @property
     def dimension(self):
-        return self.__dimension    
+        return self.__dimension
     @dimension.setter
     def dimension(self, dim):
         self.__dimension = [dim]
 
     @property
     def order_status(self):
-        return self.__order_status    
+        return self.__order_status
 
     @order_status.setter
     def order_status(self, new_status):
@@ -90,10 +90,10 @@ class Packages:
                 f"Contenido: {', '.join(self.__content) if self.__content else 'N/A'}\n"
                 f"Categoría: {', '.join(self.__category) if self.__category else 'N/A'}\n"
                 f"Dimensiones: {', '.join(self.__dimension) if self.__dimension else 'N/A'}\n"
-                f"Estado del pedido: {self.__order_status}\n")                
+                f"Estado del pedido: {self.__order_status}\n")
 
 if __name__ == "__main__":
     from excel_creation import ExcelPackages
     from creation_a import Creation
-    package = Creation.create_packages()  
+    package = Creation.create_packages()
     ExcelPackages.save(package)

@@ -1,7 +1,7 @@
 [tox]
 envlist = py39
-skipsdist = True
- 
+skipsdist = true
+
 [testenv]
 deps =
     pytest
@@ -9,8 +9,8 @@ deps =
 commands =
     coverage run -m pytest
     coverage xml
- 
+
 [coverage:run]
-relative_files = True
-source = src/
-branch = True
+relative_files = true
+source = src
+branch = true

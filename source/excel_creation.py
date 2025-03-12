@@ -34,7 +34,7 @@ class ExcelPackages:
             package.address,
             package.domiciliary,
         ])
-        
+
         wb.save(cls.FILE_PATH)
         wb.close()
         print("\nPaquete guardado con éxito en la base de datos.")
@@ -47,7 +47,7 @@ class ExcelPackages:
 
         wb = openpyxl.load_workbook(cls.FILE_PATH)
         ws = wb.active
-        
+
         if ws.max_row == 1:
             print("No hay paquetes almacenados.")
             return
@@ -55,10 +55,10 @@ class ExcelPackages:
         print("\nPaquetes almacenados:")
         for row in ws.iter_rows(min_row=2, values_only=True):
             print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]} | {row[6]} | {row[7]} | {row[8]}")
-        
+
         wb.close()
 
-    @classmethod    
+    @classmethod
     def show_dis(cls):
         if not os.path.exists(cls.FILE_PATH):
             print("No hay paquetes guardados.")
@@ -66,7 +66,7 @@ class ExcelPackages:
 
         wb = openpyxl.load_workbook(cls.FILE_PATH)
         ws = wb.active
-        
+
         if ws.max_row == 1:
             print("No hay paquetes almacenados.")
             return
@@ -75,5 +75,5 @@ class ExcelPackages:
         for row in ws.iter_rows(min_row=2, values_only=True):
             if row[8] == "pendiente":
                 print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]} | {row[6]} | {row[7]} | Disponible")
-        
+
         wb.close()

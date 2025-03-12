@@ -21,7 +21,7 @@ def menu_customer(user):
         elif opcion == "3":
             print("Mostrando tus pedidos pendientes...")
         elif opcion == "4" :
-            update_d(ExcelPackages, user)  
+            update_d(ExcelPackages, user)
         elif opcion == "5":
             print("Cerrando sesión...")
             break
@@ -74,7 +74,7 @@ def menu():
         print("2. Iniciar sesión")
         print("3. Salir")
         opcion = input("Seleccione una opción: ")
-        
+
         if opcion == "1":
             register_user()
         elif opcion == "2":

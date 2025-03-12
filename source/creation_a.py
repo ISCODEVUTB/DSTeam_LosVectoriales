@@ -7,12 +7,12 @@ class Creation:
         weight = input("Peso (kg): ")
         type = None
         while type != "basico" or type != "estandar" or type != "dimensionado":
-            print("El tipo debe ser basico, estandar o dimensionado") 
+            print("El tipo debe ser basico, estandar o dimensionado")
             type = input("Tipo (basico, estandar o dimensionado): ")
             if type == "basico" or type == "estandar" or type == "dimensionado":
                 break
-        content = input("Contenido (separado por comas): ").split(",") 
-        category = input("Categorías (separadas por comas): ").split(",") 
+        content = input("Contenido (separado por comas): ").split(",")
+        category = input("Categorías (separadas por comas): ").split(",")
         dimension = input("Dimensiones (ej: 10x20x30 cm): ").split(",")
         order_status = "pendiente"
         address= None

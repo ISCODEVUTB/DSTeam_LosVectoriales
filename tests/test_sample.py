@@ -7,6 +7,11 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "s
 
 from source.excel_creation import ExcelPackages
 from source.management_p import Packages
+import source.creation_a
+import source.main
+import source.management_e
+import source.menu_u
+import source.users_packages
 
 class TestPackages(unittest.TestCase):
     def setUp(self):
